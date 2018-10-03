@@ -13,6 +13,13 @@ class perceptron:
         else:
             return 1
 
+    def train(self, desiredOutput, realOutput, lr, inputs):
+        diff = desiredOutput - realOutput
+        for i in range(0, len(inputs)):
+            self.weights[i] = self.weights[i] + (lr * inputs[i] * diff)
+        self.bias = self.bias + (lr * diff)
+
+
 
 # main
 perceptron_and = perceptron([1, 1], -1.5)
@@ -28,6 +35,7 @@ def p_sum(x1, x2):
     out_carry = perceptron_nand.feed([out_1, out_1])
     out_sum = perceptron_nand.feed([out_2, out_3])
     return out_sum, out_carry
+
 
 
 
