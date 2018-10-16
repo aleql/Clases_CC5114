@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import random as rnd
-from clase1 import perceptron
+
+from clase3 import SigmoidNeuron, PerceptronNeuron
 
 
 def generate_points(N, function, range):
@@ -24,7 +24,7 @@ fx = lambda x : 2*x + 10
 points, desiredOutput = generate_points(N, fx, [-60, 60])
 Ws = np.random.uniform(-2, 2, (2, 1))
 bias = np.random.uniform(-2, 2)
-perceptron = perceptron(Ws, bias)
+perceptron = SigmoidNeuron(Ws, bias)
 
 
 # Train
