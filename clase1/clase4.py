@@ -39,4 +39,24 @@ class NeuralNetworks:
                 output = layer.feed(input)
         return output
 
+    def train(self, input, expectedOutput):
+        self.forward(input)
+        self.backawardPropagationError(expectedOutput)
+
+
+    def backawardPropagationError(self, expectedOutput):
+        for layer_index in range(len(self.layers) - 1, -1, -1):
+            if layer_index == len(self.layers) - 1: # Ultima capa
+                error = expectedOutput - self.layers[layer_index].output
+                transferDerivate = np.dot(self.layers[layer_index].output, (1.0 - self.layers[layer_index].output))
+                self.layers[layer_index].neurons[0].delta = error * transferDerivate
+            else: # No es la ultima capa
+                error = 0.0
+                for neuron in self.layers[layer_index]:
+                    for next_neuron in self.layers[layer_index + 1].neurons: # Neuronas de la capa siguiente
+                        error += next_neuron.weights[j] * next_neuron.delta
+
+
+
+
 

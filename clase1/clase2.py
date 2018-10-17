@@ -56,8 +56,9 @@ plt.show()
 
 
 # perceptron.train(desiredOutput, realOutput, 0.1, points)
-
-
+lis = [1,2,3,4,5,'a']
+for i in range(len(lis) -1 , -1, -1):
+    print(lis[i])
 
 
 

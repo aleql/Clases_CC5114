@@ -7,6 +7,8 @@ class AbstractNeuron:
         self.activation_function = None
         self.weights = weights
         self.bias = bias
+        self.output = None
+        self.delta = None # Partial Derivate
         super().__init__()
 
 
