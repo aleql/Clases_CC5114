@@ -32,7 +32,18 @@ class AbstractNeuron:
             self.weights[i] = self.weights[i] + (lr * np.dot(inputs[i], diff))
         self.bias = self.bias + np.dot(np.full(len(diff), lr), diff)
 
+    def adjustDelta(self, error):
+        self.delta = error * self.transderDerivate()
 
+    def adjustBias(self, learning_rate):
+        self.bias = self.bias = (learning_rate * self.delta)
+
+    def adjustWeight(self, input, learning_rate):
+        for i in range(0, len(input)):
+            self.weights[i] = self.weights[i] + (learning_rate * np.dot(input[i], self.delta))
+
+    def transferDerivate(self):
+        return self.output * (1.0 - self.output)
 
 
 class SigmoidNeuron(AbstractNeuron):
