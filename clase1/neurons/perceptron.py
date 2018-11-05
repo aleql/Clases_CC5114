@@ -1,3 +1,5 @@
+from functools import reduce
+
 import numpy as np
 
 
@@ -8,25 +10,19 @@ class perceptron:
         self.bias = bias
 
     def feed(self, inputs):
-        if len(inputs.shape) == 1:
-            computation = np.dot(inputs, self.weights) + self.bias
-            if computation <= 0:
-                return 0
-            else:
-                return 1
-        else:
-            computationArray = []
-            for i in range(0, len(inputs)):
-                computation = np.dot(inputs[i], self.weights) + self.bias
-                computationArray.append(computation)
-            computationArray = list(map(lambda x: 0 if x < 0 else 1, computationArray))
-            return np.array(computationArray)
+        computation_output = 0
+        for input, weight in zip(inputs, self.weights):
+            computation_output += input * weight
+        computation_output += self.bias
+        return 1 if computation_output > 0 else 0
 
     def train(self, desiredOutput, realOutput, lr, inputs):
-        diff = desiredOutput - realOutput
+        # diff of both vectors
+        diff = [x - y for x, y in zip(desiredOutput, realOutput)]
+        # Update parameters
         for i in range(0, len(inputs)):
-            self.weights[i] = self.weights[i] + (lr * np.dot(inputs[i], diff))
-        self.bias = self.bias + np.dot(np.full(len(diff), lr), diff)
+            self.weights[i] = self.weights[i] + (lr * inputs[i] * diff)
+        self.bias = self.bias + lr * [reduce((lambda x, y: x + y), diff)]
 
 
 

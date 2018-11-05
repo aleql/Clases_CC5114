@@ -1,11 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from clase3 import SigmoidNeuron, PerceptronNeuron
+from neurons.SigmoidNeuron import SigmoidNeuron
 
 
 def generate_points(N, function, range):
-    points = np.random.uniform(range[0], range[1], (N, 2))  # arreglo de [[x,y],[x2,y2], ... ]
+    # Generate points
+    points = []
+    i = 0
+    while i < N:
+        points.append([np.random.uniform(range[0], range[1]), np.random.uniform(range[0], range[1])])
+        i += 1
+
+    # Obtain the desired output
     desiredOutput = []
     i = 0
     while i < N:
@@ -14,7 +21,7 @@ def generate_points(N, function, range):
             valor = 1  # arriba
         desiredOutput.append(valor)
         i += 1
-    return points, np.array(desiredOutput)
+    return points, desiredOutput
 
 
 
@@ -28,11 +35,17 @@ perceptron = SigmoidNeuron(Ws, bias)
 
 
 # Train
-x, y = points.T
 accuracies = []
 for t in range(100):
-    realOutput = perceptron.feed(points)
-    perceptron.train(desiredOutput, realOutput, 0.1, [x, y])
+
+    # Feed points and save the result
+    realOutput = []
+    for point in points:
+        realOutput.append(perceptron.feed(point))
+
+    # Train the perceptron for each input
+    for i in range(0, len(points)):
+        perceptron.train(desiredOutput[i], realOutput[i], 0.1, points[i])
 
     # Obtener accuracy
     correct = 0
@@ -43,6 +56,7 @@ for t in range(100):
     accuracies.append(accuracy)
 
 # Plot scatterplot
+x, y = zip(*points)
 colors = list(map(lambda c: 'b' if c == 1 else 'r', realOutput))
 plt.scatter(x, y, c=colors)
 line_x = range(-60, 60)
@@ -53,12 +67,6 @@ plt.show()
 # Plot accuracies
 plt.plot(accuracies)
 plt.show()
-
-
-# perceptron.train(desiredOutput, realOutput, 0.1, points)
-lis = [1,2,3,4,5,'a']
-for i in range(len(lis) -1 , -1, -1):
-    print(lis[i])
 
 
 

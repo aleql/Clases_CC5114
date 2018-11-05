@@ -1,6 +1,6 @@
 import numpy as np
 
-from clase3 import PerceptronNeuron, SigmoidNeuron
+from neurons.AbstractNeuron import PerceptronNeuron, SigmoidNeuron
 
 
 class NeuronLayer:
@@ -25,7 +25,7 @@ class NeuronLayer:
         return outputs
 
 
-class NeuralNetworks:
+class NeuralNetwork:
 
     def __init__(self, layers, n_neurons, neuron_type, input_size):
         self.layers = []
