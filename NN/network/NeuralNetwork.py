@@ -56,7 +56,7 @@ class NeuralNetwork:
 
     def updateWeights(self, input):
         first = True
-        for layer_index in range(len(self.layers) - 1):
+        for layer_index in range(len(self.layers)):
             # Use input or output of previous layer
             if first:
                 input = input

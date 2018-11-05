@@ -35,7 +35,7 @@ class AbstractNeuron:
         self.delta = error * self.transferDerivate()
 
     def adjustBias(self, learning_rate):
-        self.bias = (learning_rate * self.delta)
+        self.bias += (learning_rate * self.delta)
 
     def adjustWeight(self, input, learning_rate):
         for i in range(0, len(input)):
