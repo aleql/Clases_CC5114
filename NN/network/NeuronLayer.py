@@ -27,7 +27,6 @@ class NeuronLayer:
         self.layer_output.append(outputs)
         return outputs
 
-    def adjustDeltaLayer(self, error):
-        for neuron in self.neurons:
+    def adjustDeltaLayer(self, error_list):
+        for neuron, error in zip(self.neurons, error_list):
             neuron.adjustDelta(error)
-

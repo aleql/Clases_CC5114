@@ -1,6 +1,6 @@
 import numpy as np
 
-from auxiliar_methods.statistics_errors import simple_error
+from auxiliar_methods.statistics_errors import simple_error, cuadratic_error, accuracy_net
 from network.NeuronLayer import NeuronLayer
 
 
@@ -53,9 +53,13 @@ class NeuralNetwork:
                 self.NN_outputs[0] += expectedOutput
                 self.NN_outputs[1] += layer_output
 
-                # Calculate error and adjust delta
-                error = simple_error(expectedOutput, layer_output)
-                self.layers[layer_index].adjustDeltaLayer(error)
+                # error list:
+                error_list = []
+                for exp_output, real_output in zip(expectedOutput, layer_output):
+                    partial_error = float(abs(exp_output - real_output))
+                    error_list.append(partial_error)
+
+                self.layers[layer_index].adjustDeltaLayer(error_list)
 
             # Hidden layer
             else:
@@ -85,10 +89,17 @@ class NeuralNetwork:
                 neuron.adjustWeight(input, self.learning_rate)
                 neuron.adjustBias(self.learning_rate)
 
-    def get_error(self):
+    def get_stats(self, error_type):
         # Calculate error
-        error = simple_error(self.NN_outputs[0], self.NN_outputs[1])
+        if error_type == 'simple':
+            error = simple_error(self.NN_outputs[0], self.NN_outputs[1])
+        elif error_type == 'cuadratic':
+            error = cuadratic_error(self.NN_outputs[0], self.NN_outputs[1])
+        # Get accuracy
+        accuracy = accuracy_net(self.NN_outputs[0], self.NN_outputs[1])
         # Set to default
         self.NN_outputs = [[], []]
-        return error
+        return error, accuracy
+
+
 

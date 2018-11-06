@@ -1,7 +1,7 @@
 from neurons.AbstractNeuron import AbstractNeuron
 
 # Define relu activation function
-relu = lambda x: 1 if x > 0 else 0
+relu = lambda x: 1 if x > 0.0 else 0.0
 
 
 class PerceptronNeuron(AbstractNeuron):

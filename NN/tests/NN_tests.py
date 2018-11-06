@@ -1,5 +1,6 @@
 import unittest
 
+from auxiliar_methods.statistics_errors import truncate
 from network.NeuralNetwork import NeuralNetwork
 
 
@@ -25,16 +26,16 @@ class Test_case_1(unittest.TestCase):
         self.sigmoid_NN.train([[1, 1]], [[1]])
 
     def test_parameters_train(self):
-        assert round(self.sigmoid_NN.layers[0].neurons[0].bias, 3) == 0.502, "Test case 1: neuron 1 bias not updated " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].bias, 3) == 0.502, "Test case 1: neuron 1 bias not updated " \
                                                                              "correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[0].weights[0], 3) == 0.402, "Test case 1: neuron 1 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].weights[0], 3) == 0.402, "Test case 1: neuron 1 weight[0] " \
                                                                                    "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[0].weights[1], 3) == 0.302, "Test case 1: neuron 1 weight[1] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].weights[1], 3) == 0.302, "Test case 1: neuron 1 weight[1] " \
                                                                                    "not updated correctly. "
 
-        assert round(self.sigmoid_NN.layers[1].neurons[0].bias, 3) == 0.439, "Test case 1: neuron 2 bias not updated " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[0].bias, 3) == 0.439, "Test case 1: neuron 2 bias not updated " \
                                                                              "correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[0].weights[0], 3) == 0.330, "Test case 1: neuron 2 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[0].weights[0], 3) == 0.330, "Test case 1: neuron 2 weight[0] " \
                                                                                    "not updated correctly. "
 
 
@@ -64,27 +65,28 @@ class Test_case_2(unittest.TestCase):
         self.sigmoid_NN.train([[1, 1]], [[1, 1]])
 
     def test_parameters_train(self):
-        assert round(self.sigmoid_NN.layers[0].neurons[0].bias, 2) == 0.50, "Test case 2: neuron 1 bias not updated " \
+
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].bias, 4) == 0.5025, "Test case 2: neuron 1 bias not updated " \
                                                                             "correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[0].weights[0], 2) == 0.70, "Test case 2: neuron 1 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].weights[0], 4) == 0.7025, "Test case 2: neuron 1 weight[0] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[0].weights[1], 2) == 0.30, "Test case 2: neuron 1 weight[1] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[0].weights[1], 4) == 0.3025, "Test case 2: neuron 1 weight[1] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[1].bias, 2) == 0.40, "Test case 2: neuron 2 bias not updated " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[1].bias, 4) == 0.4024, "Test case 2: neuron 2 bias not updated " \
                                                                             "correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[1].weights[0], 2) == 0.30, "Test case 2: neuron 2 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[1].weights[0], 4) == 0.3024, "Test case 2: neuron 2 weight[0] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[0].neurons[1].weights[1], 2) == 0.70, "Test case 2: neuron 2 weight[1] " \
+        assert truncate(self.sigmoid_NN.layers[0].neurons[1].weights[1], 4) == 0.7024, "Test case 2: neuron 2 weight[1] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[0].bias, 2) == 0.33, "Test case 2: neuron 3 bias not updated " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[0].bias, 4) == 0.3366, "Test case 2: neuron 3 bias not updated " \
                                                                             "correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[0].weights[0], 2) == 0.23, "Test case 2: neuron 3 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[0].weights[0], 4) == 0.2299, "Test case 2: neuron 3 weight[0] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[0].weights[1], 2) == 0.33, "Test case 2: neuron 3 weight[1] " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[0].weights[1], 4) == 0.3293, "Test case 2: neuron 3 weight[1] " \
                                                                                   "not updated correctly."
-        assert round(self.sigmoid_NN.layers[1].neurons[1].bias, 2) == 0.63, "Test case 2: neuron 4 bias not updated " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[1].bias, 4) == 0.6237, "Test case 2: neuron 4 bias not updated " \
                                                                             "correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[1].weights[0], 2) == 0.42, "Test case 2: neuron 4 weight[0] " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[1].weights[0], 4) == 0.4194, "Test case 2: neuron 4 weight[0] " \
                                                                                   "not updated correctly. "
-        assert round(self.sigmoid_NN.layers[1].neurons[1].weights[1], 2) == 0.22, "Test case 2: neuron 4 weight[1] " \
+        assert truncate(self.sigmoid_NN.layers[1].neurons[1].weights[1], 4) == 0.2190, "Test case 2: neuron 4 weight[1] " \
                                                                                   "not updated correctly. "
