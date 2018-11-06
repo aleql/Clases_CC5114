@@ -22,7 +22,7 @@ class Test_case_1(unittest.TestCase):
         self.sigmoid_NN.layers[1].neurons[0].weights = [0.3]
 
         # Train the NN
-        self.sigmoid_NN.train([1, 1], [1])
+        self.sigmoid_NN.train([[1, 1]], [[1]])
 
     def test_parameters_train(self):
         assert round(self.sigmoid_NN.layers[0].neurons[0].bias, 3) == 0.502, "Test case 1: neuron 1 bias not updated " \
@@ -61,7 +61,7 @@ class Test_case_2(unittest.TestCase):
         self.sigmoid_NN.layers[1].neurons[1].weights = [0.4, 0.2]
 
         # Train the NN
-        self.sigmoid_NN.train([1, 1], [1, 1])
+        self.sigmoid_NN.train([[1, 1]], [[1, 1]])
 
     def test_parameters_train(self):
         assert round(self.sigmoid_NN.layers[0].neurons[0].bias, 2) == 0.50, "Test case 2: neuron 1 bias not updated " \

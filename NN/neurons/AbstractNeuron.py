@@ -9,7 +9,7 @@ class AbstractNeuron:
         self.activation_function = None
         self.weights = weights
         self.bias = bias
-        self.output = None
+        self.outputs = []
         self.delta = None # Partial Derivate
         super().__init__()
 
@@ -19,7 +19,7 @@ class AbstractNeuron:
         for input, weight in zip(inputs, self.weights):
             computation_output += input * weight
         computation_output = (self.activation_function(computation_output + self.bias))
-        self.output = computation_output
+        self.outputs.append(computation_output)
         return computation_output
 
     def train(self, desiredOutput, realOutput, lr, inputs):
@@ -39,10 +39,11 @@ class AbstractNeuron:
 
     def adjustWeight(self, input, learning_rate):
         for i in range(0, len(input)):
-            self.weights[i] = self.weights[i] + (learning_rate * np.dot(input[i], self.delta))
+            self.weights[i] = self.weights[i] + (learning_rate * input[i] * self.delta)
 
     def transferDerivate(self):
-        return self.output * (1.0 - self.output)
+        output = self.outputs.pop(0)
+        return output * (1.0 - output)
 
 
 

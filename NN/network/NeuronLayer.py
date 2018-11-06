@@ -8,7 +8,7 @@ class NeuronLayer:
 
     def __init__(self, type, n_neurons, input_size):
         self.neurons = []
-        self.layer_output = None
+        self.layer_output = []
         # Generate neurons
         for i in range(n_neurons):
             # Generate n_neurons
@@ -24,7 +24,7 @@ class NeuronLayer:
         outputs = []
         for neuron in self.neurons:
             outputs.append(neuron.feed(input))
-        self.layer_output = outputs
+        self.layer_output.append(outputs)
         return outputs
 
     def adjustDeltaLayer(self, error):

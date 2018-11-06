@@ -16,7 +16,7 @@ sigmoid_NN.layers[0].neurons[0].weights = [0.4, 0.3]
 sigmoid_NN.layers[1].neurons[0].bias = 0.4
 sigmoid_NN.layers[1].neurons[0].weights = [0.3]
 
-sigmoid_NN.train([1, 1], [1])
+sigmoid_NN.train([[1, 1]], [[1]])
 
 print("--- Test case | ---")
 
@@ -46,7 +46,7 @@ sigmoid_NN.layers[1].neurons[1].bias = 0.6
 sigmoid_NN.layers[1].neurons[1].weights = [0.4, 0.2]
 
 
-sigmoid_NN.train([1, 1], [1, 1])
+sigmoid_NN.train([[1, 1]], [[1, 1]])
 
 print("--- Test case || ---")
 
