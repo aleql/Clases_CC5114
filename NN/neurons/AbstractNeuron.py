@@ -13,7 +13,6 @@ class AbstractNeuron:
         self.delta = None # Partial Derivate
         super().__init__()
 
-
     def feed(self, inputs):
         computation_output = 0
         for input, weight in zip(inputs, self.weights):

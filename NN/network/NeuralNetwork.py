@@ -1,6 +1,6 @@
 import numpy as np
 
-from auxiliar_methods.statistics_errors import simple_error, cuadratic_error, accuracy_net
+from auxiliar_methods.statistics_errors import simple_error, cuadratic_error, accuracy_net, identity
 from network.NeuronLayer import NeuronLayer
 
 
@@ -9,7 +9,6 @@ class NeuralNetwork:
     def __init__(self, layers_structure, neuron_type, input_size):
         self.layers = []
         self.learning_rate = 0.5
-        self.NN_outputs = [[], []]
         neurons_in_previous_layer = None
         for neurons_in_layer in layers_structure:
             # Inputs for the layer is the number of outputs in previous layer
@@ -24,8 +23,11 @@ class NeuralNetwork:
             outputs.append(self.forward(input))
 
         self.backawardPropagation(expectedOutputs)
+
         for input in inputs:
             self.updateWeights(input)
+
+        return self.get_stats(outputs, expectedOutputs)
 
     def forward(self, input):
         output = None
@@ -47,18 +49,13 @@ class NeuralNetwork:
             # Last layer
             if layer_index == len(self.layers) - 1:
 
+                # Get layer output
                 layer_output = self.layers[layer_index].layer_output.pop(0)
-
-                # Append outputs for getting error of train
-                self.NN_outputs[0] += expectedOutput
-                self.NN_outputs[1] += layer_output
 
                 # error list:
                 error_list = []
                 for exp_output, real_output in zip(expectedOutput, layer_output):
-                    partial_error = float(abs(exp_output - real_output))
-                    error_list.append(partial_error)
-
+                    error_list.append(float(abs(exp_output - real_output)))
                 self.layers[layer_index].adjustDeltaLayer(error_list)
 
             # Hidden layer
@@ -89,17 +86,12 @@ class NeuralNetwork:
                 neuron.adjustWeight(input, self.learning_rate)
                 neuron.adjustBias(self.learning_rate)
 
-    def get_stats(self, error_type):
+    def get_stats(self, outputs, expected_outputs, error_type='simple'):
         # Calculate error
         if error_type == 'simple':
-            error = simple_error(self.NN_outputs[0], self.NN_outputs[1])
+            error = simple_error(expected_outputs, outputs)
         elif error_type == 'cuadratic':
-            error = cuadratic_error(self.NN_outputs[0], self.NN_outputs[1])
+            error = cuadratic_error(expected_outputs, outputs)
         # Get accuracy
-        accuracy = accuracy_net(self.NN_outputs[0], self.NN_outputs[1])
-        # Set to default
-        self.NN_outputs = [[], []]
+        accuracy = accuracy_net(expected_outputs, outputs)
         return error, accuracy
-
-
-
