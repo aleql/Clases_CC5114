@@ -8,9 +8,7 @@ class NN_controller:
 
     def train_epochs(self, input_set, exp_output_set, epochs):
         for i in range(epochs):
-            # self.error_per_epoch.append(self.NeuralNetwork.get_error())
-            # self.error_per_epoch.append(self.NeuralNetwork.get_error())
             error, accuracy = self.NeuralNetwork.train(input_set, exp_output_set)
-            self.error_per_epoch.append("Epoch {}, error : {}, accuracy: {}".format(i, error, accuracy))
+            self.error_per_epoch.append(error)
         return self.error_per_epoch
 
