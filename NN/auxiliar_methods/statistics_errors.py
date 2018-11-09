@@ -5,17 +5,18 @@ import numpy as np
 
 def list_sub(list1, list2):
     error = 0.0
-    for l1, l2 in zip(list1, list2):
-        error += abs(l1 - l2)
+    # for l1, l2 in zip(list1, list2):
+    #     error += (l1 - l2)
+    error = np.linalg.norm(np.array(list1) - np.array(list2))
     return error
+
 
 def simple_error(expectedOutputs, realOutputs):
     error = 0
     for real, expected in zip(realOutputs, expectedOutputs):
         error += list_sub(expected, real)
-    if len(realOutputs) == 0:
-        print("hello")
     return error / len(realOutputs)
+
 
 def accuracy_net(expectedOutputs, realOutputs):
     accuracy = 0.0
@@ -41,6 +42,7 @@ def prediction_accuracy(expected, real):
         if real == expected:
             return 1
     return 0.0
+    # return sum(1 for x,y in zip(expected, real) if x == y) / len(real)
 
 def cuadratic_error(expectedOutputs, realOutputs):
     error = 0

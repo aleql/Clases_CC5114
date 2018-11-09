@@ -6,11 +6,11 @@ data = [[0, 0], [0, 1], [1, 0], [1, 1]]
 
 exp_outputs = [[0], [1], [1], [0]]
 
-sigmoid_NN = NeuralNetwork([2, 1], 'sigmoid', 2)
+sigmoid_NN = NeuralNetwork([2, 1], 'relu', 2)
 
 controller = NN_controller(sigmoid_NN, 'simple')
 
-results = controller.train_epochs(data, exp_outputs, 1)
+results = controller.train_epochs(data, exp_outputs, 100)
 plt.plot(results)
 plt.show()
 # print(results[-1])

@@ -26,6 +26,13 @@ class NeuralNetwork:
 
         return self.get_stats(outputs, expectedOutputs)
 
+    def test(self, inputs, expectedOutputs):
+        outputs = []
+        for input in inputs:
+            outputs.append(self.forward(input))
+        return self.get_stats(outputs, expectedOutputs)
+
+
     def forward(self, input):
         output = None
         for layer in self.layers:
@@ -48,7 +55,7 @@ class NeuralNetwork:
                 # error list:
                 error_list = []
                 for exp_output, real_output in zip(expectedOutput, layer_output):
-                    error_list.append(float(abs(exp_output - real_output)))
+                    error_list.append(float(exp_output - real_output))
                 self.layers[layer_index].adjustDeltaLayer(error_list)
 
             # Hidden layer
