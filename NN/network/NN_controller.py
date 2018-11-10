@@ -15,9 +15,9 @@ class NN_controller:
 
         return self.error_per_epoch, self.accuracy_per_epoch
 
-    def test(self, input_set, exp_output_set):
-        error, accuracy = self.NeuralNetwork.test(input_set, exp_output_set)
-        self.error_per_epoch.append(error)
-        self.accuracy_per_epoch.append(accuracy)
-        return self.error_per_epoch, self.accuracy_per_epoch
+    def eval(self, input_set, exp_output_set):
+        error, accuracy = self.NeuralNetwork.eval(input_set, exp_output_set)
+        # self.error_per_epoch.append(error)
+        # self.accuracy_per_epoch.append(accuracy)
+        return error, accuracy
 

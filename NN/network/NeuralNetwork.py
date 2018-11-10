@@ -6,9 +6,9 @@ from network.NeuronLayer import NeuronLayer
 
 class NeuralNetwork:
 
-    def __init__(self, layers_structure, neuron_type, input_size):
+    def __init__(self, layers_structure, neuron_type, input_size, learning_rate=0.5):
         self.layers = []
-        self.learning_rate = 0.5
+        self.learning_rate = learning_rate
         neurons_in_previous_layer = None
         for neurons_in_layer in layers_structure:
             # Inputs for the layer is the number of outputs in previous layer
@@ -26,7 +26,7 @@ class NeuralNetwork:
 
         return self.get_stats(outputs, expectedOutputs)
 
-    def test(self, inputs, expectedOutputs):
+    def eval(self, inputs, expectedOutputs):
         outputs = []
         for input in inputs:
             outputs.append(self.forward(input))
